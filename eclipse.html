@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eclipse - Digital Marketing & Content Creation</title>
+    <style>
+        :root {
+            /* Define colors for easy management */
+            --bg-color: #000;
+            --primary-text: #fff;
+            --secondary-text: #ccc;
+            --accent-text: #999;
+            --border-color: #333;
+            --card-bg-start: #111;
+            --card-bg-end: #222;
+            --portfolio-bg: #f0f0f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-color);
+            color: var(--primary-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* General Section Styling */
+        .section {
+            /* Using clamp for fluid vertical padding */
+            padding: clamp(4rem, 10vw, 6rem) 0;
+        }
+
+        .section-title {
+            text-align: center;
+            /* Using clamp for fluid font size */
+            font-size: clamp(2.5rem, 5vw + 1rem, 4rem);
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(1rem, 2vw + 0.5rem, 1.3rem);
+            color: var(--accent-text);
+            margin-bottom: 60px;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--bg-color);
+            color: var(--primary-text);
+        }
+
+        .services-grid {
+            display: grid;
+            /* Adjusted minmax for better flexibility on smaller screens */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, var(--card-bg-start) 0%, var(--card-bg-end) 100%);
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Note: Hover effects will be triggered by a tap on mobile before navigating. The core content remains accessible. */
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--primary-text);
+        }
+
+        .service-card ul {
+            list-style: none;
+        }
+
+        .service-card li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+            font-size: 1rem;
+            color: var(--secondary-text);
+            transition: color 0.3s;
+        }
+
+        .service-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-text);
+            font-weight: bold;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background: var(--portfolio-bg);
+            color: var(--bg-color);
+        }
+
+        .portfolio .section-title {
+            background: linear-gradient(135deg, #000 0%, #666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .portfolio .section-subtitle {
+            color: #555;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            /* Adjusted minmax for better flexibility */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .portfolio-item img,
+        .portfolio-item video {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block; /* Removes bottom space under media */
+            transition: transform 0.4s;
+        }
+
+        .portfolio-item:hover img,
+        .portfolio-item:hover video {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+            border-radius: 20px;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay p {
+            color: var(--primary-text);
+            font-weight: 600;
+            font-size: 1.2rem;
+            transform: translateY(20px);
+            transition: transform 0.4s 0.1s; /* Added delay */
+        }
+
+        .portfolio-item:hover .portfolio-overlay p {
+            transform: translateY(0);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #000 0%, #222 100%);
+            text-align: center;
+        }
+        
+        .contact-info {
+            max-width: 800px;
+            margin: 60px auto 0;
+            background: linear-gradient(135deg, var(--card-bg-start) 0%, var(--card-bg-end) 100%);
+            padding: 60px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-info h3 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-5px);
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .contact-item a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+            word-break: break-all; /* Prevents overflow on mobile */
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-text);
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #666;
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid #222;
+        }
+
+        /* Animation Helper Class */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-element.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+/* Add this inside your @media (max-width: 768px) block */
+
+.service-card {
+    /* Add a transition for the background change if you want */
+    transition: background-color 0.4s ease;
+}
+
+.service-card h3 {
+    position: relative; /* Needed to position the icon */
+    cursor: pointer; /* Indicates it's clickable */
+}
+
+/* Add a '+' icon to the title */
+.service-card h3::after {
+    content: '+';
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    font-weight: 300;
+    transition: transform 0.3s ease;
+    color: var(--accent-text);
+}
+
+/* Hide the details list by default on mobile */
+.service-card ul {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), 
+                margin-top 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-top: 0;
+}
+
+/* --- Styles for when the card is active --- */
+
+.service-card.active {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+}
+
+/* Rotate the icon to a 'x' (looks like a minus) */
+.service-card.active h3::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+/* Show the details list when active */
+.service-card.active ul {
+    max-height: 500px; /* A large enough value to show all content */
+    margin-top: 30px; /* Restore the space between title and list */
+}
+        }
+    </style>
+</head>
+<body>
+
+    <section class="services section" id="services">
+        <div class="container">
+            <h2 class="section-title">What We Do</h2>
+            <div class="services-grid">
+                <div class="service-card fade-in-element">
+                    <h3>Short Form Video Production</h3>
+                    <ul>
+                        <li>Concept Development & Strategy</li>
+                        <li>Professional Filming & Direction</li>
+                        <li>Advanced Post-Production Editing</li>
+                        <li>Platform-Specific Optimization</li>
+                        <li>Viral Trend Research & Analysis</li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-element">
+                    <h3>Social Media Management</h3>
+                    <ul>
+                        <li>Facebook & Instagram Setup</li>
+                        <li>TikTok Strategy & Growth</li>
+                        <li>Content Calendar Planning</li>
+                        <li>Community Management</li>
+                        <li>Performance Analytics & Reporting</li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-element">
+                    <h3>Digital Transformation</h3>
+                    <ul>
+                        <li>Complete Brand Digitalization</li>
+                        <li>Online Presence Development</li>
+                        <li>E-commerce Platform Integration</li>
+                        <li>Digital Strategy Consulting</li>
+                        <li>Competitive Market Analysis</li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-element">
+                    <h3>Influencer Collaboration</h3>
+                    <ul>
+                        <li>Strategic Influencer Matching</li>
+                        <li>Campaign Development & Management</li>
+                        <li>Content Coordination & Quality Control</li>
+                        <li>Performance Tracking & Optimization</li>
+                        <li>ROI Analysis & Reporting</li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-element">
+                    <h3>Data & Research</h3>
+                    <ul>
+                        <li>In-Depth Market Analysis</li>
+                        <li>Competitor Intelligence Gathering</li>
+                        <li>Trend Identification & Forecasting</li>
+                        <li>Audience Behavior Insights</li>
+                        <li>Performance Metrics & KPIs</li>
+                    </ul>
+                </div>
+                <div class="service-card fade-in-element">
+                    <h3>Complete Production</h3>
+                    <ul>
+                        <li>End-to-End Project Management</li>
+                        <li>Creative Direction & Execution</li>
+                        <li>Professional Post-Production</li>
+                        <li>Multi-Platform Distribution Strategy</li>
+                        <li>Ongoing Support & Optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio section" id="portfolio">
+        <div class="container">
+            <h2 class="section-title">Our Work</h2>
+            <p class="section-subtitle">Recent projects that showcase our expertise</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project1', '_blank')">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Fashion+Campaign" type="video/mp4">
+                    </video>
+                    <div class="portfolio-overlay">
+                        <p>Fashion Brand Campaign<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project2', '_blank')">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Restaurant+Social" alt="Restaurant Social Media">
+                    <div class="portfolio-overlay">
+                        <p>Restaurant Social Media<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project3', '_blank')">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Tech+Launch" type="video/mp4">
+                    </video>
+                    <div class="portfolio-overlay">
+                        <p>Tech Product Launch<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project4', '_blank')">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Influencer+Collab" alt="Influencer Collaboration">
+                    <div class="portfolio-overlay">
+                        <p>Influencer Collaboration<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project5', '_blank')">
+                    <video autoplay loop muted playsinline>
+                        <source src="https://via.placeholder.com/400x300/000000/FFFFFF?text=E-commerce" type="video/mp4">
+                    </video>
+                    <div class="portfolio-overlay">
+                        <p>E-commerce Campaign<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
+                    </div>
+                </div>
+                <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project6', '_blank')">
+                    <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Brand+Transform" alt="Brand Transformation">
+                    <div class="portfolio-overlay">
+                        <p>Brand Transformation<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Work Together</h2>
+            <div class="contact-info">
+                <h3>Ready to Transform Your Digital Presence?</h3>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <strong>Email</strong>
+                        <a href="mailto:info@eclipse-digital.com">info@eclipse-digital.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Phone</strong>
+                        <a href="tel:+1234567890">+357 99520916</a>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Instagram</strong>
+                        <a href="https://instagram.com/eclipse_digital" target="_blank">@eclipse_digital</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Eclipse Digital Marketing. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const fadeInObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Stop observing the element once it's visible
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with the .fade-in-element class
+        const elementsToFadeIn = document.querySelectorAll('.fade-in-element');
+        elementsToFadeIn.forEach(el => {
+            fadeInObserver.observe(el);
+        });
+        // Add this code inside your <script> tag
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Accordion Logic for Service Cards on Mobile ---
+    const serviceCards = document.querySelectorAll('.service-card');
+    
+    // This function will handle the click
+    function handleCardClick(e) {
+        // We only want this to work on smaller screens
+        if (window.innerWidth > 768) {
+            return;
+        }
+
+        // The card that was clicked
+        const clickedCard = e.currentTarget;
+
+        // Check if the clicked card is already active
+        const isAlreadyActive = clickedCard.classList.contains('active');
+
+        // Optional: Close all other cards first for a classic accordion feel
+        serviceCards.forEach(card => {
+            card.classList.remove('active');
+        });
+
+        // If the card wasn't already active, open it.
+        // This makes it so clicking an open card will just close it.
+        if (!isAlreadyActive) {
+            clickedCard.classList.add('active');
+        }
+    }
+
+    // Attach the event listener to each card
+    serviceCards.forEach(card => {
+        // We listen on the whole card, but you could listen on card.querySelector('h3') too
+        card.addEventListener('click', handleCardClick);
+    });
+
+    // --- Original Intersection Observer Logic ---
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const elementsToFadeIn = document.querySelectorAll('.fade-in-element');
+    elementsToFadeIn.forEach(el => {
+        fadeInObserver.observe(el);
+    });
+});
+    </script>
+</body>
+</html>
