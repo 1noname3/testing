@@ -168,12 +168,14 @@
         }
 
         .portfolio-item img,
-        .portfolio-item video {
+        .portfolio-item video,
+        .portfolio-item iframe {
             width: 100%;
-            height: 300px;
+            height: 420px; /* INCREASED: This makes the container taller */
             object-fit: cover;
-            display: block; /* Removes bottom space under media */
+            display: block;
             transition: transform 0.4s;
+            border: none;
         }
 
         .portfolio-item:hover img,
@@ -211,6 +213,9 @@
             transform: translateY(0);
         }
 
+        .portfolio-item-ig iframe {
+            height: 420px; /* Or a height that looks best to you */
+        }   
         /* Contact Section */
         .contact {
             background: linear-gradient(135deg, #000 0%, #222 100%);
@@ -417,25 +422,27 @@
         </div>
     </section>
 
-    <section class="portfolio section" id="portfolio">
+   <section class="portfolio section" id="portfolio">
         <div class="container">
             <h2 class="section-title">Our Work</h2>
             <p class="section-subtitle">Recent projects that showcase our expertise</p>
+            
             <div class="portfolio-grid">
-                <div class="portfolio-item fade-in-element" onclick="window.open('https://www.instagram.com/p/DLhdY_8MmQj/', '_blank')">
-                    <video autoplay loop muted playsinline>
-                        <source src="https://www.instagram.com/p/DLhdY_8MmQj/" type="video/mp4">
-                    </video>
+
+                <div class="portfolio-item fade-in-element portfolio-item-ig" onclick="window.open('https://www.instagram.com/p/DLhdY_8MmQj/?utm_source=ig_web_copy_link', '_blank')">
+                    <iframe src="https://www.instagram.com/p/DLhdY_8MmQj/embed" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                     <div class="portfolio-overlay">
                         <p>Marso3d<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
                     </div>
                 </div>
+
                 <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project2', '_blank')">
                     <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Restaurant+Social" alt="Restaurant Social Media">
                     <div class="portfolio-overlay">
                         <p>Restaurant Social Media<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
                     </div>
                 </div>
+
                 <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project3', '_blank')">
                     <video autoplay loop muted playsinline>
                         <source src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Tech+Launch" type="video/mp4">
@@ -444,12 +451,14 @@
                         <p>Tech Product Launch<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
                     </div>
                 </div>
+
                 <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project4', '_blank')">
                     <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Influencer+Collab" alt="Influencer Collaboration">
                     <div class="portfolio-overlay">
                         <p>Influencer Collaboration<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
                     </div>
                 </div>
+
                 <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project5', '_blank')">
                     <video autoplay loop muted playsinline>
                         <source src="https://via.placeholder.com/400x300/000000/FFFFFF?text=E-commerce" type="video/mp4">
@@ -458,14 +467,15 @@
                         <p>E-commerce Campaign<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
                     </div>
                 </div>
+
                 <div class="portfolio-item fade-in-element" onclick="window.open('https://example.com/project6', '_blank')">
                     <img src="https://via.placeholder.com/400x300/000000/FFFFFF?text=Brand+Transform" alt="Brand Transformation">
                     <div class="portfolio-overlay">
                         <p>Brand Transformation<br><span style="font-size: 0.9rem; opacity: 0.8;">Click to View Project</span></p>
                     </div>
                 </div>
-            </div>
-        </div>
+                
+            </div> </div>
     </section>
 
     <section class="contact section" id="contact">
@@ -476,15 +486,15 @@
                 <div class="contact-grid">
                     <div class="contact-item">
                         <strong>Email</strong>
-                        <a href="mailto:eclipsetodaylatersucces@gmail.com">eclipsetodaylatersucces@gmail.com</a>
+                        <a href="mailto:info@eclipse-digital.com">info@eclipse-digital.com</a>
                     </div>
                     <div class="contact-item">
                         <strong>Phone</strong>
-                        <a href="tel:+35799286654">+357 99286654</a>
+                        <a href="tel:+1234567890">+357 99520916</a>
                     </div>
                     <div class="contact-item">
                         <strong>Instagram</strong>
-                        <a href="https://instagram.com/eclipse_smc" target="_blank">@eclipse_smc</a>
+                        <a href="https://instagram.com/eclipse_digital" target="_blank">@eclipse_digital</a>
                     </div>
                 </div>
             </div>
